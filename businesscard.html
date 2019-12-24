@@ -1,0 +1,560 @@
+<html>
+  <head>
+    <meta charset="utf8">
+    <title>SuitArt Business Card</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial';
+        font-weight: 500;
+        font-size: 6px;
+        background: rgb(241,241,241);
+        -webkit-print-color-adjust: exact;
+        box-sizing: border-box;
+      }
+
+      .page {
+        position: relative;
+        height: 90mm;
+        width: 50mm;
+        display: block;
+        background:white;
+        page-break-after: auto;
+        margin: 50px;
+        overflow: hidden;
+      }
+
+      @media print {
+        body {
+          background: black;
+        }
+
+        .page {
+          margin: 0;
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      .page.first {
+        border-left: 5px solid green;
+      }
+
+      .bottom {
+        position: absolute;
+        left: 5mm;
+        right: 5mm;
+        bottom: 5mm;
+      }
+
+      .group {
+        margin-top: 3mm;
+      }
+
+      .line {
+        color: black;
+        position: relative;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .logo {
+        position: relative;
+        width: 80%;
+        left: 10%;
+        top: 15%;
+      }
+      .table {
+       border-collapse: collapse;
+      }
+
+.table, th, td {
+  border: 1px solid black;
+  font-size: 6px;
+  text-align:center;
+  
+}
+.statstable {
+       border-collapse: collapse;
+}
+.statstable td {
+  border: 0px;
+  font-size: 8px;
+  text-align:left;
+  
+}
+.titletable {
+  width: 100%;
+       border-collapse: collapse;
+}
+.titletable td {
+  border: 0px;
+  font-size: 8px;
+  text-align:left;
+  
+}
+
+.parcialtable {
+       border-collapse: collapse;
+}
+.parcialtable td {
+  border: 1px solid #000;
+  font-size: 8px;
+  text-align:center;
+  max-width: 100px;
+}
+
+.headerstyle{
+  background-color: #366092;
+  color:blanchedalmond;
+}
+.headerstyleparti {
+  background-color: #366092;
+  height: 20px;
+  color:blanchedalmond;
+}
+.n {
+  max-width: 90px;
+}
+.names {
+  width: 90px;
+  text-align: left;
+}
+.color {
+  background-color: #A6D5E2;
+}
+.red {
+  background-color: #FFC6CD;
+}
+  </style>
+  </head>
+  <body>
+    {{#pagina}}
+    <div class="page">
+      <img src="{{image}}" alt="" width="120px">
+      <center>
+        <h1>
+          {{title}}
+        </h1>
+      </center>
+      <table class="titletable">
+        <tr>
+          <td>
+            {{titlemaster}}
+          </td>
+          <td>
+            {{grupo}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{module}}
+          </td>
+          <td>
+            {{gestion}}
+          </td>
+        </tr>
+      </table>
+      
+      
+
+      {{docente}}
+      <table class='table'>
+       <tr>
+        {{#header.header}}
+          <td class="headerstyle">
+            <div class='n'>
+              {{.}}
+            </div>
+          </td>
+        {{/header.header}}
+       </tr>
+       {{#data}}
+          <tr>
+            {{#body}}
+          <td>
+            {{#color}}
+            
+              {{#red}}
+              <div class='red'>
+                {{value}}
+              </div>
+              {{/red}}
+              {{^red}}
+              <div class='color'>
+                {{value}}
+              </div>
+              {{/red}}
+            {{/color}}
+            {{#isname}}
+            <div class='names'>
+              {{value}}
+            </div>
+            {{/isname}}
+            {{^isname}}
+            <div class='n'>
+              {{^color}}
+                {{value}}
+              {{/color}}
+            </div>
+            {{/isname}}
+          </td>
+          {{/body}}
+        </tr>
+       {{/data}}
+      </table>
+      {{#stats}}
+      <table class="statstable">
+        <tr>
+          <td>
+            Aprobados:
+          </td>
+          <td>
+            {{aprobados}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Segunda Instancia:
+          </td>
+          <td>
+            {{segundainstancia}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Reprobados:
+          </td>
+          <td>
+            {{reprobados}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Abandonados:
+          </td>
+          <td>
+            {{abandonos}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Total:
+          </td>
+          <td>
+            {{total}}
+          </td>
+        </tr>
+      </table>
+      {{/stats}}
+    </div>
+    {{/pagina}}
+    {{#estadisticaparcial}}
+    <div class="page">
+      <img src="{{image}}" alt="" width="120px">
+      <center>
+        <h1>
+          {{title}}
+        </h1>
+        <h2>
+          (Parcial)
+        </h2>
+      </center>
+      
+      <table class="titletable">
+        <tr>
+          
+          <td>
+           {{titlemaster}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{module}}
+          </td>
+          <td>
+
+          </td>
+        </tr>
+      </table>
+      <br>
+      <br>
+      <br>
+      <center>
+      <table class='parcialtable'>
+        <tr>
+          <td class="headerstyleparti">
+            Nro 
+          </td>
+          <td class="headerstyleparti">
+            Docente 
+          </td>
+          <td class="headerstyleparti">
+            Grupo 
+          </td>
+          <td class="headerstyleparti">
+            Cantidad de Participantes matriculados 
+          </td>
+          <td class="headerstyleparti">
+            Aprobados
+          </td>
+          <td class="headerstyleparti">
+            Segunda Instancia
+          </td>
+          <td class="headerstyleparti">
+            Reprobados
+          </td>
+          <td class="headerstyleparti">
+            Abandonados
+          </td>
+        </tr>
+        {{#body}}
+          <tr>
+            <td>
+              {{count}}
+            </td>
+            <td>
+              {{docente}}
+            </td>
+            <td>
+              {{grupo}}
+            </td>
+            <td>
+              {{stats.total}}
+            </td>
+            <td>
+              {{stats.aprobados}}
+            </td>
+            <td>
+              {{stats.segundainstancia}}
+            </td>
+            <td>
+              {{stats.reprobados}}
+            </td>
+            <td>
+              {{stats.abandonos}}
+            </td>
+          </tr>
+        {{/body}}
+        <tr>
+          <td colspan="3">
+            TOTAL:
+          </td>
+          <td>
+            {{totalmatriculados}}
+          </td>
+          <td>
+            {{totalaprobados}}
+          </td>
+          <td>
+            {{totalseginstancia}}
+          </td>
+          <td>
+            {{totalreprobados}}
+          </td>
+          <td>
+            {{totalabandonos}}
+          </td>
+        </tr>
+      </table>
+    </center>
+    </div>
+    {{/estadisticaparcial}}
+    {{#secondreport}}
+      <div class="page">
+        <img src="{{image}}" alt="" width="120px">
+      <center>
+        <h1>
+          {{title}}
+        </h1>
+      </center>
+      
+      <table class="titletable">
+        <tr>
+          
+          <td>
+           {{titlemaster}}
+          </td>
+          <td>
+            {{grupo}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{module}}
+          </td>
+          <td>
+            {{gestion}}
+          </td>
+        </tr>
+        
+
+      </table>
+      <br>
+        <br>
+        <br>
+        <center>
+        <table class="parcialtable">
+          <tr>
+            {{#headers}}
+              <td class="headerstyleparti">
+                {{.}}
+              </td>
+            {{/headers}}
+          </tr>
+          {{#body}}
+            <tr>
+              <td>
+                {{secondcount}}
+              </td>
+              <td>
+                {{lastname}}
+              </td>
+              <td>
+                {{name}}
+              </td>
+              <td>
+                {{note}}
+              </td>
+            </tr>
+          {{/body}}
+        </table>
+        <br>
+        <br>
+
+        <table class="statstable">
+          <tr>
+            <td>
+              Aprobados:
+            </td>
+            <td>
+              {{aprobados}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Reprobados:
+            </td>
+            <td>
+              {{reprobados}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Total:
+            </td>
+            <td>
+              {{total}}
+            </td>
+          </tr>
+        </table>
+      </center>
+      </div>
+    {{/secondreport}}
+    {{#final}}
+    <div class="page">
+      <img src="{{image}}" alt="" width="120px">
+      <center>
+        <h1>
+          {{title}}
+        </h1>
+        <h2>
+          (Final)
+        </h2>
+      </center>
+      
+      <table class="titletable">
+        <tr>
+          
+          <td>
+           {{titlemaster}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{module}}
+          </td>
+          <td>
+
+          </td>
+        </tr>
+      </table>
+      <br>
+      <br>
+      <br>
+      <center>
+      <table class='parcialtable'>
+        <tr>
+          <td class="headerstyleparti">
+            Nro 
+          </td>
+          <td class="headerstyleparti">
+            Docente 
+          </td>
+          <td class="headerstyleparti">
+            Grupo 
+          </td>
+          <td class="headerstyleparti">
+            Cantidad de Participantes matriculados 
+          </td>
+          <td class="headerstyleparti">
+            Aprobados
+          </td>
+          <td class="headerstyleparti">
+            Reprobados
+          </td>
+          <td class="headerstyleparti">
+            Abandonados
+          </td>
+        </tr>
+        {{#body}}
+          <tr>
+            <td>
+              {{count}}
+            </td>
+            <td>
+              {{docente}}
+            </td>
+            <td>
+              {{grupo}}
+            </td>
+            <td>
+              {{stats.total}}
+            </td>
+            <td>
+              {{stats.aprobados}}
+            </td>
+            <td>
+              {{stats.reprobados}}
+            </td>
+            <td>
+              {{stats.abandonos}}
+            </td>
+          </tr>
+        {{/body}}
+        <tr>
+          <td colspan="3">
+            TOTAL:
+          </td>
+          <td>
+            {{totalmatriculados}}
+          </td>
+          <td>
+            {{totalaprobados}}
+          </td>
+          <td>
+            {{totalreprobados}}
+          </td>
+          <td>
+            {{totalabandonos}}
+          </td>
+        </tr>
+      </table>
+    </center>
+    </div>
+    {{/final}}
+  </body>
+</html>

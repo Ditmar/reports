@@ -1,0 +1,17 @@
+{
+  "name": "softwarereport",
+  "version": "1.0.0",
+  "description": "Software report creator pdf",
+  "main": "report.js",
+  "scripts": {
+    "test": "node report.js"
+  },
+  "author": "Ditmar",
+  "license": "MIT",
+  "dependencies": {
+    "convert-excel-to-json": "^1.6.1",
+    "html-pdf": "^2.2.0",
+    "mustache": "^3.2.0",
+    "path": "^0.12.7"
+  }
+}
