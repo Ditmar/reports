@@ -4,7 +4,15 @@ var fs = require('fs');
 var Mustache = require('mustache');
 const excelToJson = require('convert-excel-to-json');
 var result = {};
-const convertexceldirectory = '/Users/Ditmar/vanyinformes/softwarereport/files/';
+
+//------------------------------------------------------------------//
+// ------------------------------ Variables ------------------------//
+var directoryexcel = "segundasinstancias.xlsx";
+var isreview = false;
+const convertexceldirectory = 'C:/reports/reports-master/files/';
+// ------------------------------ Variables ------------------------//
+//------------------------------------------------------------------//
+
 function getMainTitle(key) {
   return result[key][0]['C'].toUpperCase();
 }
@@ -89,6 +97,9 @@ function convertDataBody(result, key) {
           if (Number(obj[keys[j]]) >= 70) {
             stats['aprobados']++
           }
+          if (Number(obj[keys[j]]) == "-") {
+            stats['abandonos']++
+          }
           if (Number(obj[keys[j]]) == 0) {
             stats['abandonos']++
           }
@@ -130,7 +141,7 @@ fs.readdir(convertexceldirectory, (err, files) => {
       });
       //console.log(result)
       const studentsdata = excelToJson({
-        sourceFile: 'segundasinstancias.xlsx'
+        sourceFile: directoryexcel
       });
 
       var totaldata = [];
@@ -198,7 +209,7 @@ fs.readdir(convertexceldirectory, (err, files) => {
           totalsecond[i]["total"] = totalsecond[i].body.length;
           for (var j = 0; j < totalsecond[i].body.length; j++) {
             var ii = j + 1;
-            if (checkisProblem(totalsecond[i].body[j]['ci'])) {
+            if (isreview && checkisProblem(totalsecond[i].body[j]['ci'])) {
               totalsecond[i].body[j].note = "No corresponde";
             }
             if (totalsecond[i].body[j].hasOwnProperty("h" + ii)) {
@@ -264,9 +275,9 @@ fs.readdir(convertexceldirectory, (err, files) => {
         "format": "Letter",
         "orientation": "landscape",
         "border": {
-          "top": "0.7in",            // default is 0, units: mm, cm, in, px
+          "top": "0.5in",            // default is 0, units: mm, cm, in, px
           "right": "1in",
-          "bottom": "1in",
+          "bottom": "0.5in",
           "left": "1in"
         }
       }
